@@ -8,22 +8,13 @@ import router from './router'
 
 // PrimeVue
 import PrimeVue from 'primevue/config'
-import Aura from '@primevue/themes/aura'
-
+import AppTheme from './theme/app-theme'
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.use(PrimeVue, {
-  theme: {
-    preset: Aura,
-    options: {
-      cssLayer: {
-        name: 'primevue',
-        order: 'tailwind-base, primevue, tailwind-utilities',
-      },
-    },
-  },
+  theme: AppTheme,
 })
 
 app.mount('#app')
