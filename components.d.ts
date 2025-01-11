@@ -13,8 +13,8 @@ declare module 'vue' {
     PrimeLogo: typeof import('./src/components/icons/PrimeLogo.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SidebarItem: typeof import('./src/components/sidebar/SidebarItem.vue')['default']
     SidebarNav: typeof import('./src/components/sidebar/SidebarNav.vue')['default']
-    UserProfile: typeof import('./src/components/sidebar/UserProfile.vue')['default']
   }
   export interface ComponentCustomProperties {
     Tooltip: typeof import('primevue/tooltip')['default']
