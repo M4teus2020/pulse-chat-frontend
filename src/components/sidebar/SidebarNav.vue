@@ -2,6 +2,7 @@
 import PrimeLogo from '@/components/icons/PrimeLogo.vue'
 import MenuItem from './SidebarItem.vue'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const selectedSidebarNav = ref('Overview')
 const navItems = [
@@ -19,6 +20,11 @@ function setSelectedSidebarNav(title: string) {
 
 function toggleDarkMode() {
   document.documentElement.classList.toggle('p-dark')
+}
+
+const router = useRouter()
+function logout() {
+  router.push({ name: 'login' })
 }
 </script>
 
@@ -53,6 +59,7 @@ function toggleDarkMode() {
     <!-- Settings -->
     <div class="flex flex-col gap-2">
       <MenuItem title="Settings" icon="pi pi-cog" @click="toggleDarkMode" />
+      <MenuItem title="Logout" icon="pi pi-sign-out" @click="logout" />
     </div>
   </div>
 </template>

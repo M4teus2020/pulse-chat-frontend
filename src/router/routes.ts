@@ -1,8 +1,9 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router'
 
 export default [
   {
-    path: '/',
+    name: 'app',
+    path: '',
     component: () => import('@/layouts/app-layout/AppLayout.vue'),
     children: [
       {
@@ -38,6 +39,23 @@ export default [
         name: 'channels',
         path: 'channels',
         component: () => import('@/layouts/private-layout/PrivateLayout.vue'),
+      },
+    ],
+  },
+  {
+    name: 'auth',
+    path: '',
+    component: () => import('@/layouts/auth-layout/AuthLayout.vue'),
+    children: [
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import('@/pages/auth/LoginView.vue'),
+      },
+      {
+        path: 'register',
+        name: 'register',
+        component: () => import('@/pages/auth/RegisterView.vue'),
       },
     ],
   },
