@@ -14,7 +14,7 @@ import PulseLogo from '@/components/icons/PulseLogo.vue'
         >
           <PulseLogo width="32" height="32" />
         </div>
-        <h1 class="text-2xl font-bold text-primary">Pulse</h1>
+        <!-- <h1 class="text-2xl font-bold text-primary">Pulse</h1> -->
       </div>
 
       <div class="rounded-2xl bg-surface-50 p-6 dark:bg-surface-900">
