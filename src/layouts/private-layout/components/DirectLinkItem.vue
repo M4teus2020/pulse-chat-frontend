@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import UserAvatar from '@/components/ui/UserAvatar.vue';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 const props =defineProps<{
@@ -31,6 +32,7 @@ const isActive = computed(() => route.path === path)
       :image="image"
       :status="status"
       :cap-name="capName"
+      :background="isActive ? 'bg-primary' : undefined"
       size="normal"
     />
 

@@ -19,6 +19,11 @@ export default [
           },
           {
             name: 'direct',
+            path: 'direct',
+            component: () => import('@/pages/direct/DirectView.vue'),
+          },
+          {
+            name: 'direct - :id',
             path: 'direct/:id',
             component: () => import('@/pages/direct/DirectView.vue'),
           },
