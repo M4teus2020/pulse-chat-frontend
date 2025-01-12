@@ -5,6 +5,9 @@ export default [
     name: 'app',
     path: '',
     component: () => import('@/layouts/app-layout/AppLayout.vue'),
+    meta: {
+      requiresAuth: true,
+    },
     children: [
       {
         name: 'private',

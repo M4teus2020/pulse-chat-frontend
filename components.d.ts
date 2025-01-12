@@ -12,6 +12,7 @@ declare module 'vue' {
     Button: typeof import('primevue/button')['default']
     Divider: typeof import('primevue/divider')['default']
     InputText: typeof import('primevue/inputtext')['default']
+    Message: typeof import('primevue/message')['default']
     Password: typeof import('primevue/password')['default']
     PrimeLogo: typeof import('./src/components/icons/PrimeLogo.vue')['default']
     PulseLogo: typeof import('./src/components/icons/PulseLogo.vue')['default']

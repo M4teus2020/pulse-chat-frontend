@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
+import { getApiError } from '@/utils'
+import { useFormErrors } from '@/composables/useFormErrors'
 
-const router = useRouter()
+const auth = useAuthStore()
 const loading = ref(false)
+
+const formErrors = useFormErrors()
 
 const form = ref({
   email: import.meta.env.DEV ? import.meta.env.VITE_DEFAULT_EMAIL : '',
@@ -11,21 +15,13 @@ const form = ref({
 })
 
 async function handleSubmit() {
-  loading.value = true
-
   try {
-    // Simular validação básica em desenvolvimento
-    if (
-      import.meta.env.DEV &&
-      form.value.email === import.meta.env.VITE_DEFAULT_EMAIL &&
-      form.value.password === import.meta.env.VITE_DEFAULT_PASSWORD
-    ) {
-      await router.push({ name: 'private' })
-      return
-    }
+    loading.value = true
+    formErrors.clear()
 
-    // TODO: Implementar lógica de login real
-    await router.push({ name: 'private' })
+    await auth.login(form.value.email, form.value.password)
+  } catch (err) {
+    formErrors.setApiError(getApiError(err) || { message: 'Login failed' })
   } finally {
     loading.value = false
   }
@@ -37,6 +33,10 @@ async function handleSubmit() {
     <h1 class="mb-6 text-center text-2xl font-semibold">Welcome to Pulse!</h1>
 
     <form @submit.prevent="handleSubmit" class="flex flex-col gap-4">
+      <Message v-if="formErrors.message.value" severity="error">
+        {{ formErrors.message.value }}
+      </Message>
+
       <div class="flex flex-col gap-2">
         <label for="email" class="text-sm font-medium">Email</label>
         <InputText

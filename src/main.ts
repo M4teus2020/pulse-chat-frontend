@@ -9,6 +9,7 @@ import router from './router'
 // PrimeVue
 import PrimeVue from 'primevue/config'
 import AppTheme from './theme/app-theme'
+
 const app = createApp(App)
 
 app.use(createPinia())

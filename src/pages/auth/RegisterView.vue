@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
+import { getApiError } from '@/utils'
+import { useFormErrors } from '@/composables/useFormErrors'
 
-const router = useRouter()
+const authStore = useAuthStore()
 const loading = ref(false)
+
+const formErrors = useFormErrors()
 
 const form = ref({
   name: '',
@@ -12,11 +16,13 @@ const form = ref({
 })
 
 async function handleSubmit() {
-  loading.value = true
-
   try {
-    // TODO: Implementar lógica de registro
-    await router.push({ name: 'private' })
+    loading.value = true
+    formErrors.clear()
+
+    await authStore.register(form.value)
+  } catch (err) {
+    formErrors.setApiError(getApiError(err) || { message: 'Registro falhou' })
   } finally {
     loading.value = false
   }
@@ -33,10 +39,14 @@ async function handleSubmit() {
         <InputText
           id="name"
           v-model="form.name"
+          @update:modelValue="formErrors.clearField('name')"
           placeholder="Enter your name"
           :disabled="loading"
           required
         />
+        <small v-if="formErrors.hasFieldError('name')" class="text-red-500">
+          {{ formErrors.getFieldError('name') }}
+        </small>
       </div>
 
       <div class="flex flex-col gap-2">
@@ -44,11 +54,15 @@ async function handleSubmit() {
         <InputText
           id="email"
           v-model="form.email"
+          @update:modelValue="formErrors.clearField('email')"
           type="email"
           placeholder="Enter your email"
           :disabled="loading"
           required
         />
+        <small v-if="formErrors.hasFieldError('email')" class="text-red-500">
+          {{ formErrors.getFieldError('email') }}
+        </small>
       </div>
 
       <div class="flex flex-col gap-2">
@@ -56,6 +70,7 @@ async function handleSubmit() {
         <Password
           id="password"
           v-model="form.password"
+          @update:modelValue="formErrors.clearField('password')"
           placeholder="Enter your password"
           :feedback="true"
           toggleMask
@@ -63,6 +78,9 @@ async function handleSubmit() {
           required
           fluid
         />
+        <small v-if="formErrors.hasFieldError('password')" class="text-red-500">
+          {{ formErrors.getFieldError('password') }}
+        </small>
       </div>
 
       <Button type="submit" :loading="loading" class="mt-2">

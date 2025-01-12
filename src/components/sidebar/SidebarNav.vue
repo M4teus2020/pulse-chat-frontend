@@ -2,8 +2,7 @@
 import PulseLogo from '@/components/icons/PulseLogo.vue'
 import MenuItem from './SidebarItem.vue'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
+import { useAuthStore } from '@/stores/authStore'
 const selectedSidebarNav = ref('Overview')
 const navItems = [
   { icon: 'pi pi-home', title: 'Overview' },
@@ -22,9 +21,9 @@ function toggleDarkMode() {
   document.documentElement.classList.toggle('p-dark')
 }
 
-const router = useRouter()
+const authStore = useAuthStore()
 function logout() {
-  router.push({ name: 'login' })
+  authStore.logout()
 }
 </script>
 
