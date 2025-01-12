@@ -4,7 +4,7 @@ import MenuItem from './SidebarItem.vue'
 import { ref } from 'vue'
 
 const selectedSidebarNav = ref('Overview')
-const SidebarNavs = [
+const navItems = [
   { icon: 'pi pi-home', title: 'Overview' },
   { icon: 'pi pi-comment', title: 'Chat' },
   { icon: 'pi pi-inbox', title: 'Inbox' },
@@ -20,7 +20,6 @@ function setSelectedSidebarNav(title: string) {
 function toggleDarkMode() {
   document.documentElement.classList.toggle('p-dark')
 }
-
 </script>
 
 <template>
@@ -36,9 +35,12 @@ function toggleDarkMode() {
         </div>
       </div>
 
-      <div class="mt-10 flex flex-col gap-2">
+      <Divider />
+
+      <!-- Main Links -->
+      <div class="flex flex-col gap-2">
         <MenuItem
-          v-for="navItem in SidebarNavs"
+          v-for="navItem in navItems"
           :key="navItem.title"
           :title="navItem.title"
           :icon="navItem.icon"
@@ -48,14 +50,9 @@ function toggleDarkMode() {
       </div>
     </div>
 
-    <div>
-      <div class="flex flex-col gap-2">
-        <MenuItem
-          title="Settings"
-          icon="pi pi-cog"
-          @click="toggleDarkMode"
-        />
-      </div>
+    <!-- Settings -->
+    <div class="flex flex-col gap-2">
+      <MenuItem title="Settings" icon="pi pi-cog" @click="toggleDarkMode" />
     </div>
   </div>
 </template>

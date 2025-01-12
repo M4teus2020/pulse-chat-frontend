@@ -10,3 +10,41 @@
   @tailwind components;
   @tailwind utilities;
 }
+@layer components {
+  .scrollbar, .scrollbar-fade {
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    &::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-clip: padding-box;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      background-color: var(--p-text-muted-color);
+      opacity: 0;
+      min-height: 40px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      border: 2px solid transparent;
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+
+  .scrollbar-fade {
+    &:hover::-webkit-scrollbar-thumb,
+    &:hover::-webkit-scrollbar-track {
+      visibility: visible;
+    }
+    &::-webkit-scrollbar-thumb,
+    &::-webkit-scrollbar-track {
+      visibility: hidden;
+    }
+  }
+}
