@@ -6,15 +6,25 @@ const router = useRouter()
 const loading = ref(false)
 
 const form = ref({
-  email: '',
-  password: '',
+  email: import.meta.env.DEV ? import.meta.env.VITE_DEFAULT_EMAIL : '',
+  password: import.meta.env.DEV ? import.meta.env.VITE_DEFAULT_PASSWORD : '',
 })
 
 async function handleSubmit() {
   loading.value = true
 
   try {
-    // TODO: Implementar lógica de login
+    // Simular validação básica em desenvolvimento
+    if (
+      import.meta.env.DEV &&
+      form.value.email === import.meta.env.VITE_DEFAULT_EMAIL &&
+      form.value.password === import.meta.env.VITE_DEFAULT_PASSWORD
+    ) {
+      await router.push({ name: 'private' })
+      return
+    }
+
+    // TODO: Implementar lógica de login real
     await router.push({ name: 'private' })
   } finally {
     loading.value = false
