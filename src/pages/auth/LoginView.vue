@@ -34,7 +34,7 @@ async function handleSubmit() {
 
 <template>
   <div>
-    <h1 class="mb-6 text-center text-2xl font-semibold">Welcome back!</h1>
+    <h1 class="mb-6 text-center text-2xl font-semibold">Welcome to Pulse!</h1>
 
     <form @submit.prevent="handleSubmit" class="flex flex-col gap-4">
       <div class="flex flex-col gap-2">

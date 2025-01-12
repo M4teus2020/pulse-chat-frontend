@@ -14,6 +14,7 @@ declare module 'vue' {
     InputText: typeof import('primevue/inputtext')['default']
     Password: typeof import('primevue/password')['default']
     PrimeLogo: typeof import('./src/components/icons/PrimeLogo.vue')['default']
+    PulseLogo: typeof import('./src/components/icons/PulseLogo.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SidebarItem: typeof import('./src/components/sidebar/SidebarItem.vue')['default']

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PrimeLogo from '@/components/icons/PrimeLogo.vue'
+import PulseLogo from '@/components/icons/PulseLogo.vue'
 import MenuItem from './SidebarItem.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -37,7 +37,7 @@ function logout() {
         <div
           class="flex size-12 items-center justify-center rounded-xl border border-primary"
         >
-          <PrimeLogo />
+          <PulseLogo />
         </div>
       </div>
 
