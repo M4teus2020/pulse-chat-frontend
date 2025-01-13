@@ -3,6 +3,13 @@ import PulseLogo from '@/components/icons/PulseLogo.vue'
 import MenuItem from './SidebarItem.vue'
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
+import { useDark, useToggle } from '@vueuse/core'
+
+const isDark = useDark()
+const authStore = useAuthStore()
+
+const toggleDark = useToggle(isDark)
+
 const selectedSidebarNav = ref('Overview')
 const navItems = [
   { icon: 'pi pi-home', title: 'Overview' },
@@ -15,15 +22,6 @@ const navItems = [
 
 function setSelectedSidebarNav(title: string) {
   selectedSidebarNav.value = title
-}
-
-function toggleDarkMode() {
-  document.documentElement.classList.toggle('p-dark')
-}
-
-const authStore = useAuthStore()
-function logout() {
-  authStore.logout()
 }
 </script>
 
@@ -57,8 +55,8 @@ function logout() {
 
     <!-- Settings -->
     <div class="flex flex-col gap-2">
-      <MenuItem title="Settings" icon="pi pi-cog" @click="toggleDarkMode" />
-      <MenuItem title="Logout" icon="pi pi-sign-out" @click="logout" />
+      <MenuItem title="Settings" icon="pi pi-cog" @click="toggleDark()" />
+      <MenuItem title="Logout" icon="pi pi-sign-out" @click="authStore.logout()" />
     </div>
   </div>
 </template>

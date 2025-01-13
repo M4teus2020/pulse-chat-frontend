@@ -7,5 +7,5 @@ export default {
     extend: {},
   },
   plugins: [PrimeUi],
-  darkMode: ['selector', '[class="p-dark"]'],
+  darkMode: 'selector',
 }

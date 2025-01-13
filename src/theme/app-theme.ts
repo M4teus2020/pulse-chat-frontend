@@ -80,7 +80,7 @@ const Noir = definePreset(Aura, {
 export default {
   preset: Noir,
   options: {
-    darkModeSelector: '.p-dark',
+    darkModeSelector: '.dark',
     cssLayer: {
       name: 'primevue',
       order: 'tailwind-base, primevue, tailwind-utilities',
