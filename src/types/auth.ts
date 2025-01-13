@@ -1,8 +1,9 @@
 export interface User {
   id: string
   name: string
+  cap_name: string
   email: string
-  avatar?: string | null
+  image: string | null
 }
 
 export interface LoginCredentials {
