@@ -39,10 +39,11 @@ async function handleSubmit() {
         <InputText
           id="name"
           v-model="form.name"
-          @update:modelValue="formErrors.clearField('name')"
           placeholder="Enter your name"
-          :disabled="loading"
           required
+          :disabled="loading"
+          :invalid="formErrors.hasFieldError('name')"
+          @update:modelValue="formErrors.clearField('name')"
         />
         <small v-if="formErrors.hasFieldError('name')" class="text-red-500">
           {{ formErrors.getFieldError('name') }}
@@ -54,11 +55,12 @@ async function handleSubmit() {
         <InputText
           id="email"
           v-model="form.email"
-          @update:modelValue="formErrors.clearField('email')"
-          type="email"
           placeholder="Enter your email"
-          :disabled="loading"
+          type="email"
           required
+          :disabled="loading"
+          :invalid="formErrors.hasFieldError('email')"
+          @update:modelValue="formErrors.clearField('email')"
         />
         <small v-if="formErrors.hasFieldError('email')" class="text-red-500">
           {{ formErrors.getFieldError('email') }}
@@ -70,22 +72,26 @@ async function handleSubmit() {
         <Password
           id="password"
           v-model="form.password"
-          @update:modelValue="formErrors.clearField('password')"
           placeholder="Enter your password"
-          :feedback="true"
           toggleMask
-          :disabled="loading"
           required
           fluid
+          :feedback="true"
+          :disabled="loading"
+          :invalid="formErrors.hasFieldError('password')"
+          @update:modelValue="formErrors.clearField('password')"
         />
         <small v-if="formErrors.hasFieldError('password')" class="text-red-500">
           {{ formErrors.getFieldError('password') }}
         </small>
       </div>
 
-      <Button type="submit" :loading="loading" class="mt-2">
-        Create account
-      </Button>
+      <Button
+        type="submit"
+        :loading="loading"
+        class="mt-2"
+        label="Create account"
+      />
 
       <div class="mt-4 text-center text-sm">
         Already have an account?

@@ -42,10 +42,11 @@ async function handleSubmit() {
         <InputText
           id="email"
           v-model="form.email"
-          type="email"
           placeholder="Enter your email"
-          :disabled="loading"
+          type="email"
           required
+          :disabled="loading"
+          :invalid="!!formErrors.error.value"
         />
       </div>
 
@@ -55,15 +56,16 @@ async function handleSubmit() {
           id="password"
           v-model="form.password"
           placeholder="Enter your password"
-          :feedback="false"
           toggleMask
-          :disabled="loading"
           required
           fluid
+          :feedback="false"
+          :disabled="loading"
+          :invalid="!!formErrors.error.value"
         />
       </div>
 
-      <Button type="submit" :loading="loading" class="mt-2">Sign in</Button>
+      <Button type="submit" :loading="loading" class="mt-2" label="Sign in" />
 
       <div class="mt-4 text-center text-sm">
         Don't have an account?
