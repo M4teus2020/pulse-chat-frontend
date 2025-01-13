@@ -70,6 +70,10 @@ export const useAuthStore = defineStore('auth', () => {
     window.location.href = '/login'
   }
 
+  if (isAuthenticated.value) {
+    fetchCurrentUser()
+  }
+
   return {
     user,
 
