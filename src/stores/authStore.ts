@@ -3,9 +3,10 @@ import { ref, computed } from 'vue'
 import type { RegisterCredentials, User } from '@/types/auth'
 import { authRequests } from '@/services/requests/auth'
 import router from '@/router'
+import { useStorage } from '@vueuse/core'
 
 export const useAuthStore = defineStore('auth', () => {
-  const token = ref<string | null>(localStorage.getItem('token'))
+  const token = useStorage<string | null>('token', null)
   const user = ref<User | null>(null)
 
   const isAuthenticated = computed(() => !!token.value)
@@ -16,7 +17,6 @@ export const useAuthStore = defineStore('auth', () => {
 
       user.value = authResponse.user
       token.value = authResponse.token
-      localStorage.setItem('token', authResponse.token)
 
       await router.push({ name: 'private' })
     } catch (err) {
@@ -30,7 +30,6 @@ export const useAuthStore = defineStore('auth', () => {
 
       user.value = authResponse.user
       token.value = authResponse.token
-      localStorage.setItem('token', authResponse.token)
 
       await router.push({ name: 'private' })
     } catch (err) {
@@ -56,16 +55,9 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function logout() {
-    try {
-      if (token.value) {
-        await authRequests.logout()
-      }
-    } catch (err) {
-      console.error(err)
-    }
+    await authRequests.logout()
 
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
+    token.value = null
 
     window.location.href = '/login'
   }

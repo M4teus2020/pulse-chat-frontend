@@ -23,6 +23,10 @@ export const authRequests = {
   },
 
   async logout(): Promise<void> {
-    await api.post('/logout')
+    try {
+      await api.post('/logout')
+    } catch (error) {
+      console.error(error)
+    }
   },
 }
