@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import UserAvatar from '@/components/ui/UserAvatar.vue';
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-const props =defineProps<{
+import UserAvatar from '@/components/ui/UserAvatar.vue'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
+const props = defineProps<{
   id: string
   image?: string | null
   name: string
@@ -20,7 +21,7 @@ const isActive = computed(() => route.path === path)
 <template>
   <RouterLink
     :to="path"
-    class="flex cursor-pointer items-center gap-3 rounded-lg px-2 py-2"
+    class="flex cursor-pointer items-center gap-3 rounded-lg p-2"
     :class="[
       {
         'bg-transparent text-muted-color hover:bg-emphasis': !isActive,
