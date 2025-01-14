@@ -2,6 +2,7 @@
 import UserInfo from '@/components/UserInfo.vue'
 import MainLinkItem from './components/MainLinkItem.vue'
 import DirectLinkItem from './components/DirectLinkItem.vue'
+import ContainerComponent from '@/components/ui/ContainerComponent.vue'
 
 const navItems = [
   { icon: 'pi pi-users', title: 'Friends', path: '/friends' },
@@ -102,17 +103,13 @@ const directMessages = [
 </script>
 
 <template>
-  <div class="flex h-full w-full gap-4">
-    <div
-      class="flex w-72 flex-col rounded-2xl bg-surface-50 p-5 dark:bg-surface-900"
-    >
-      <div>
-        <!-- Search -->
-        <InputText placeholder="Find or start a conversation" class="w-full" />
+  <ContainerComponent class="w-80 flex-shrink-0">
+    <template #header>
+      <!-- Search -->
+      <InputText placeholder="Find or start a conversation" class="w-full" />
+    </template>
 
-        <Divider />
-      </div>
-
+    <template #body>
       <div class="scrollbar-fade flex-grow overflow-y-auto">
         <!-- Main Links -->
         <div class="flex flex-col gap-2">
@@ -151,10 +148,8 @@ const directMessages = [
       </div>
 
       <UserInfo />
-    </div>
+    </template>
+  </ContainerComponent>
 
-    <div class="flex flex-1 rounded-2xl bg-surface-50 p-5 dark:bg-surface-900">
-      <RouterView />
-    </div>
-  </div>
+  <RouterView />
 </template>

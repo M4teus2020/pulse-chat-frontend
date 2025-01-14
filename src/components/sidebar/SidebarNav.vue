@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ContainerComponent from '../ui/ContainerComponent.vue'
 import PulseLogo from '@/components/icons/PulseLogo.vue'
 import MenuItem from './SidebarItem.vue'
 import { ref } from 'vue'
@@ -26,20 +27,16 @@ function setSelectedSidebarNav(title: string) {
 </script>
 
 <template>
-  <div
-    class="flex h-full flex-col justify-between rounded-2xl bg-surface-50 p-5 dark:bg-surface-900"
-  >
-    <div>
-      <div class="flex items-center gap-3">
-        <div
-          class="flex size-12 items-center justify-center rounded-xl border border-primary"
-        >
-          <PulseLogo />
-        </div>
+  <ContainerComponent class="w-auto" headerClass="h-auto">
+    <template #header>
+      <div
+        class="flex size-12 items-center justify-center rounded-xl border border-primary"
+      >
+        <PulseLogo />
       </div>
+    </template>
 
-      <Divider />
-
+    <template #body>
       <!-- Main Links -->
       <div class="flex flex-col gap-2">
         <MenuItem
@@ -51,12 +48,16 @@ function setSelectedSidebarNav(title: string) {
           @click="setSelectedSidebarNav(navItem.title)"
         />
       </div>
-    </div>
 
-    <!-- Settings -->
-    <div class="flex flex-col gap-2">
-      <MenuItem title="Settings" icon="pi pi-cog" @click="toggleDark()" />
-      <MenuItem title="Logout" icon="pi pi-sign-out" @click="authStore.logout()" />
-    </div>
-  </div>
+      <!-- Settings -->
+      <div class="mt-auto flex flex-col gap-2">
+        <MenuItem title="Settings" icon="pi pi-cog" @click="toggleDark()" />
+        <MenuItem
+          title="Logout"
+          icon="pi pi-sign-out"
+          @click="authStore.logout()"
+        />
+      </div>
+    </template>
+  </ContainerComponent>
 </template>
