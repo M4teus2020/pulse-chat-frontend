@@ -3,12 +3,14 @@ interface Props {
   image?: string | null
   status?: string
   capName?: string
+  shape?: 'circle' | 'square'
   size?: 'normal' | 'large' | 'xlarge'
   background?: string
 }
 withDefaults(defineProps<Props>(), {
   background: 'bg-surface-50 dark:bg-surface-900',
   size: 'normal',
+  shape: 'circle',
 })
 </script>
 
@@ -41,7 +43,7 @@ withDefaults(defineProps<Props>(), {
         '!bg-primary-100 !text-primary-950': !image,
       }"
       :size="size"
-      shape="circle"
+      :shape="shape"
     />
   </div>
 </template>
