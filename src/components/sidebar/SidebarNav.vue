@@ -1,15 +1,9 @@
 <script setup lang="ts">
-import ContainerComponent from '../ui/ContainerComponent.vue'
+import ContainerComponent from '@/components/ui/ContainerComponent.vue'
+import UserSettingsDrawer from '@/components/settings/UserSettingsDrawer.vue'
 import PulseLogo from '@/components/icons/PulseLogo.vue'
 import MenuItem from './SidebarItem.vue'
 import { ref } from 'vue'
-import { useAuthStore } from '@/stores/authStore'
-import { useDark, useToggle } from '@vueuse/core'
-
-const isDark = useDark()
-const authStore = useAuthStore()
-
-const toggleDark = useToggle(isDark)
 
 const selectedSidebarNav = ref('Overview')
 const navItems = [
@@ -49,14 +43,11 @@ function setSelectedSidebarNav(title: string) {
         />
       </div>
 
-      <!-- Settings -->
       <div class="mt-auto flex flex-col gap-2">
-        <MenuItem title="Settings" icon="pi pi-cog" @click="toggleDark()" />
-        <MenuItem
-          title="Logout"
-          icon="pi pi-sign-out"
-          @click="authStore.logout()"
-        />
+        <!-- Settings -->
+        <UserSettingsDrawer v-slot="{ toggle }">
+          <MenuItem title="Settings" icon="pi pi-cog" @click="toggle()" />
+        </UserSettingsDrawer>
       </div>
     </template>
   </ContainerComponent>

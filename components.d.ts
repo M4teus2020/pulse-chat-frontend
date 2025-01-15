@@ -12,6 +12,7 @@ declare module 'vue' {
     Button: typeof import('primevue/button')['default']
     ContainerComponent: typeof import('./src/components/ui/ContainerComponent.vue')['default']
     Divider: typeof import('primevue/divider')['default']
+    Drawer: typeof import('primevue/drawer')['default']
     IconField: typeof import('primevue/iconfield')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
     InputText: typeof import('primevue/inputtext')['default']
@@ -26,6 +27,7 @@ declare module 'vue' {
     SidebarNav: typeof import('./src/components/sidebar/SidebarNav.vue')['default']
     UserAvatar: typeof import('./src/components/ui/UserAvatar.vue')['default']
     UserInfo: typeof import('./src/components/UserInfo.vue')['default']
+    UserSettingsDrawer: typeof import('./src/components/settings/UserSettingsDrawer.vue')['default']
   }
   export interface ComponentCustomProperties {
     Tooltip: typeof import('primevue/tooltip')['default']
