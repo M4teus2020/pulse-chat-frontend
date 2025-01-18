@@ -49,6 +49,7 @@ const sidebarOptions = [
           :options="sidebarOptions"
           option-label="label"
           option-value="value"
+          :allow-empty="false"
           :pt="{
             pcToggleButton: {
               root: { class: 'flex-1 py-2' },

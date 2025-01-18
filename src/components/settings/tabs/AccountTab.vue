@@ -18,6 +18,14 @@ const changeUsernameDialog = defineAsyncComponent(
 const showChangeUsernameDialog = () => {
   dialog.open(changeUsernameDialog)
 }
+
+const changeEmailDialog = defineAsyncComponent(
+  () => import('../components/ChangeEmail.vue'),
+)
+
+const showChangeEmailDialog = () => {
+  dialog.open(changeEmailDialog)
+}
 </script>
 
 <template>
@@ -78,7 +86,12 @@ const showChangeUsernameDialog = () => {
           <p class="font-medium text-color">{{ user.email }}</p>
         </div>
 
-        <Button size="small" label="Edit" severity="secondary" />
+        <Button
+          size="small"
+          label="Edit"
+          @click="showChangeEmailDialog"
+          severity="secondary"
+        />
       </div>
     </SettingsCard>
 
