@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AppSettingsTab: typeof import('./src/components/settings/tabs/AppSettingsTab.vue')['default']
     Avatar: typeof import('primevue/avatar')['default']
     Badge: typeof import('primevue/badge')['default']
     Button: typeof import('primevue/button')['default']
@@ -15,6 +16,7 @@ declare module 'vue' {
     Drawer: typeof import('primevue/drawer')['default']
     IconField: typeof import('primevue/iconfield')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
+    InputNumber: typeof import('primevue/inputnumber')['default']
     InputText: typeof import('primevue/inputtext')['default']
     Menu: typeof import('primevue/menu')['default']
     Message: typeof import('primevue/message')['default']
@@ -25,6 +27,8 @@ declare module 'vue' {
     SelectButton: typeof import('primevue/selectbutton')['default']
     SidebarItem: typeof import('./src/components/sidebar/SidebarItem.vue')['default']
     SidebarNav: typeof import('./src/components/sidebar/SidebarNav.vue')['default']
+    Slider: typeof import('primevue/slider')['default']
+    ToggleSwitch: typeof import('primevue/toggleswitch')['default']
     UserAvatar: typeof import('./src/components/ui/UserAvatar.vue')['default']
     UserInfo: typeof import('./src/components/UserInfo.vue')['default']
     UserSettingsDrawer: typeof import('./src/components/settings/UserSettingsDrawer.vue')['default']
