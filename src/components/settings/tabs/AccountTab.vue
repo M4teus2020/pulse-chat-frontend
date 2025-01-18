@@ -26,6 +26,14 @@ const changeEmailDialog = defineAsyncComponent(
 const showChangeEmailDialog = () => {
   dialog.open(changeEmailDialog)
 }
+
+const changePasswordDialog = defineAsyncComponent(
+  () => import('../components/ChangePassword.vue'),
+)
+
+const showChangePasswordDialog = () => {
+  dialog.open(changePasswordDialog)
+}
 </script>
 
 <template>
@@ -96,7 +104,12 @@ const showChangeEmailDialog = () => {
     </SettingsCard>
 
     <SettingsCard title="Security">
-      <Button label="Change Password" icon="pi pi-lock" size="small" />
+      <Button
+        label="Change Password"
+        icon="pi pi-lock"
+        size="small"
+        @click="showChangePasswordDialog"
+      />
     </SettingsCard>
 
     <SettingsCard title="Account Removal">
