@@ -12,6 +12,8 @@ import router from './router'
 import PrimeVue from 'primevue/config'
 import AppTheme from './theme/app-theme'
 
+import DialogService from 'primevue/dialogservice';
+
 const app = createApp(App)
 
 app.use(createPinia())
@@ -22,5 +24,7 @@ app.use(router)
 app.use(PrimeVue, {
   theme: AppTheme,
 })
+
+app.use(DialogService)
 
 app.mount('#app')

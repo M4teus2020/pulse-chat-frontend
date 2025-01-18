@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { cn } from '@/utils'
+
 interface Props {
   image?: string | null
   status?: string
@@ -6,8 +8,10 @@ interface Props {
   shape?: 'circle' | 'square'
   size?: 'normal' | 'large' | 'xlarge'
   background?: string
+  class?: string
 }
-withDefaults(defineProps<Props>(), {
+
+const props = withDefaults(defineProps<Props>(), {
   background: 'bg-surface-50 dark:bg-surface-900',
   size: 'normal',
   shape: 'circle',
@@ -39,9 +43,14 @@ withDefaults(defineProps<Props>(), {
 
     <Avatar
       v-bind="image ? { image: image } : { label: capName }"
-      :class="{
-        '!bg-primary-100 !text-primary-950': !image,
-      }"
+      :class="
+        cn(
+          {
+            'bg-primary-300 text-primary-950': !image,
+          },
+          props.class,
+        )
+      "
       :size="size"
       :shape="shape"
     />

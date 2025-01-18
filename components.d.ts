@@ -7,13 +7,16 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AccountTab: typeof import('./src/components/settings/tabs/AccountTab.vue')['default']
     AppSettingsTab: typeof import('./src/components/settings/tabs/AppSettingsTab.vue')['default']
     Avatar: typeof import('primevue/avatar')['default']
     Badge: typeof import('primevue/badge')['default']
     Button: typeof import('primevue/button')['default']
+    ChangeUsername: typeof import('./src/components/settings/components/ChangeUsername.vue')['default']
     ContainerComponent: typeof import('./src/components/ui/ContainerComponent.vue')['default']
     Divider: typeof import('primevue/divider')['default']
     Drawer: typeof import('primevue/drawer')['default']
+    DynamicDialog: typeof import('primevue/dynamicdialog')['default']
     IconField: typeof import('primevue/iconfield')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
     InputNumber: typeof import('primevue/inputnumber')['default']
