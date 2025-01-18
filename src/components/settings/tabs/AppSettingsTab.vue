@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SettingsCard from '../components/SettingsCard.vue'
 import { useColorMode } from '@vueuse/core'
 import { Button, InputNumber, Slider, ToggleSwitch } from 'primevue'
 import { ref } from 'vue'
@@ -80,9 +81,7 @@ const timeFormats = [
 
 <template>
   <div class="flex flex-col gap-4">
-    <div class="space-y-2 rounded-xl p-3 bg-emphasis">
-      <h3 class="font-medium text-color">Theme</h3>
-
+    <SettingsCard title="Theme">
       <div class="flex flex-wrap gap-2">
         <Button
           v-for="themeColor of colorModes"
@@ -96,11 +95,9 @@ const timeFormats = [
           @click="colorMode = themeColor.value"
         />
       </div>
-    </div>
+    </SettingsCard>
 
-    <div class="space-y-2 rounded-xl p-3 bg-emphasis">
-      <h3 class="font-medium text-color">Message Style</h3>
-
+    <SettingsCard title="Message Style">
       <div class="flex gap-2">
         <Button
           v-for="style of messageStyles"
@@ -114,11 +111,9 @@ const timeFormats = [
           @click="messageStyle = style.value"
         />
       </div>
-    </div>
+    </SettingsCard>
 
-    <div class="space-y-2 rounded-xl p-3 bg-emphasis">
-      <h3 class="font-medium text-color">Font Scaling</h3>
-
+    <SettingsCard title="Font Scaling">
       <div class="flex gap-2">
         <Button
           v-for="preset of fontScales"
@@ -148,11 +143,9 @@ const timeFormats = [
       </div>
 
       <Slider v-model="fontScale" :min="50" :max="200" class="!mb-1 !mt-3" />
-    </div>
+    </SettingsCard>
 
-    <div class="space-y-2 rounded-xl p-3 bg-emphasis">
-      <h3 class="font-medium text-color">Time Format</h3>
-
+    <SettingsCard title="Time Format">
       <div class="flex gap-2">
         <Button
           v-for="format of timeFormats"
@@ -171,6 +164,6 @@ const timeFormats = [
         <label class="text-color">Show seconds</label>
         <ToggleSwitch v-model="showSecondsToggle" />
       </div>
-    </div>
+    </SettingsCard>
   </div>
 </template>
