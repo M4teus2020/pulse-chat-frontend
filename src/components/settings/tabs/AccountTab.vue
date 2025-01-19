@@ -4,12 +4,10 @@ import UserAvatar from '@/components/ui/UserAvatar.vue'
 import { defineAsyncComponent, ref } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useDialog } from 'primevue/usedialog'
-import { DynamicDialog } from 'primevue'
+import { Button, DynamicDialog } from 'primevue'
 
 const authStore = useAuthStore()
-
 const user = ref(authStore.user!)
-
 const dialog = useDialog()
 
 const changeUsernameDialog = defineAsyncComponent(
@@ -33,6 +31,18 @@ const changePasswordDialog = defineAsyncComponent(
 
 const showChangePasswordDialog = () => {
   dialog.open(changePasswordDialog)
+}
+
+const disableAccountDialog = defineAsyncComponent(
+  () => import('../components/DisableAccount.vue'),
+)
+
+const confirmDisableAccount = () => {
+  dialog.open(disableAccountDialog, { data: { actionType: 'disable' } })
+}
+
+const confirmDeleteAccount = () => {
+  dialog.open(disableAccountDialog, { data: { actionType: 'delete' } })
 }
 </script>
 
@@ -124,6 +134,7 @@ const showChangePasswordDialog = () => {
           icon="pi pi-lock"
           size="small"
           severity="danger"
+          @click="confirmDisableAccount"
         />
         <Button
           label="Delete Account"
@@ -131,6 +142,7 @@ const showChangePasswordDialog = () => {
           size="small"
           severity="danger"
           variant="outlined"
+          @click="confirmDeleteAccount"
         />
       </div>
     </SettingsCard>

@@ -17,6 +17,7 @@ declare module 'vue' {
     ChangeUsername: typeof import('./src/components/settings/components/ChangeUsername.vue')['default']
     ContainerComponent: typeof import('./src/components/ui/ContainerComponent.vue')['default']
     Dialog: typeof import('primevue/dialog')['default']
+    DisableAccount: typeof import('./src/components/settings/components/DisableAccount.vue')['default']
     Divider: typeof import('primevue/divider')['default']
     Drawer: typeof import('primevue/drawer')['default']
     DynamicDialog: typeof import('primevue/dynamicdialog')['default']
