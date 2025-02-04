@@ -29,4 +29,12 @@ export const authRequests = {
       console.error(error)
     }
   },
+
+  async updatePassword(data: {
+    current_password: string
+    password: string
+    password_confirmation: string
+  }): Promise<void> {
+    await api.post('/update-password', data)
+  },
 }
