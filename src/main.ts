@@ -8,11 +8,16 @@ import { useAuthStore } from './stores/authStore'
 import App from './App.vue'
 import router from './router'
 
+import { client } from 'laravel-precognition-vue'
+import api from './services/api'
+
 // PrimeVue
 import PrimeVue from 'primevue/config'
 import AppTheme from './theme/app-theme'
 
 import DialogService from 'primevue/dialogservice';
+
+client.use(api)
 
 const app = createApp(App)
 
