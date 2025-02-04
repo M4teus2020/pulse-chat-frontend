@@ -11,6 +11,7 @@ const formErrors = useFormErrors()
 
 const form = ref({
   name: '',
+  username: '',
   email: '',
   password: '',
 })
@@ -47,6 +48,22 @@ async function handleSubmit() {
         />
         <small v-if="formErrors.hasFieldError('name')" class="text-red-500">
           {{ formErrors.getFieldError('name') }}
+        </small>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="username" class="text-sm font-medium">Username</label>
+        <InputText
+          id="username"
+          v-model="form.username"
+          placeholder="Enter your username"
+          required
+          :disabled="loading"
+          :invalid="formErrors.hasFieldError('username')"
+          @update:modelValue="formErrors.clearField('username')"
+        />
+        <small v-if="formErrors.hasFieldError('username')" class="text-red-500">
+          {{ formErrors.getFieldError('username') }}
         </small>
       </div>
 
