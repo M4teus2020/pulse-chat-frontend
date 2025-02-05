@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { onMounted, inject, type Ref } from 'vue'
 import type { DynamicDialogInstance } from 'primevue/dynamicdialogoptions'
-import { Message } from 'primevue'
+import { Message, Password } from 'primevue'
+import { useForm } from 'laravel-precognition-vue'
+import { useAuthStore } from '@/stores/authStore'
+import FormField from '@/components/ui/FormField.vue'
 
 const dialogRef = inject<Ref<DynamicDialogInstance>>('dialogRef')
 
@@ -30,10 +33,6 @@ function close() {
   dialogRef?.value.close()
 }
 
-function confirmAction() {
-  close()
-}
-
 onMounted(() => {
   if (dialogRef) {
     dialogRef.value.options = {
@@ -44,18 +43,35 @@ onMounted(() => {
     }
   }
 })
+
+const auth = useAuthStore()
+const form = useForm(
+  actionType === 'disable' ? 'post' : 'delete',
+  `/${actionType}-account`,
+  {
+    password: '',
+  },
+)
+
+async function handleSubmit() {
+  await form.submit()
+  auth.logout()
+}
 </script>
 
 <template>
-  <form @submit.prevent="confirmAction" class="max-w-sm space-y-4">
+  <form @submit.prevent="handleSubmit" class="max-w-sm space-y-4">
     <Message severity="warn" :closable="false" class="mt-px">
       {{ currentAction.message }}
     </Message>
 
-    <div class="flex flex-col gap-2">
-      <label for="password" class="text-sm font-medium"> Password </label>
-      <Password id="password" toggleMask fluid :feedback="false" />
-    </div>
+    <FormField
+      :form="form"
+      name="password"
+      label="Password"
+      :component="Password"
+      :props="{ toggleMask: true, fluid: true, feedback: false }"
+    />
 
     <div class="flex justify-end gap-2">
       <Button variant="text" @click="close" size="small">Cancel</Button>
