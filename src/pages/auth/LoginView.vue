@@ -1,29 +1,37 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import type { AxiosApiResponse } from '@/types/api'
+import type { AuthResponse } from '@/types/auth'
+import { isAxiosError, type AxiosError } from 'axios'
+
+import { Password } from 'primevue'
+import FormField from '@/components/ui/FormField.vue'
+
 import { useAuthStore } from '@/stores/authStore'
-import { getApiError } from '@/utils'
-import { useFormErrors } from '@/composables/useFormErrors'
+import { useForm } from 'laravel-precognition-vue'
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
 const auth = useAuthStore()
-const loading = ref(false)
+const router = useRouter()
 
-const formErrors = useFormErrors()
-
-const form = ref({
+const errorMessage = ref<string | null>(null)
+const form = useForm('post', '/login', {
   email: import.meta.env.DEV ? import.meta.env.VITE_DEFAULT_EMAIL : '',
   password: import.meta.env.DEV ? import.meta.env.VITE_DEFAULT_PASSWORD : '',
 })
 
 async function handleSubmit() {
   try {
-    loading.value = true
-    formErrors.clear()
+    errorMessage.value = null
 
-    await auth.login(form.value.email, form.value.password)
-  } catch (err) {
-    formErrors.setApiError(getApiError(err) || { message: 'Login failed' })
-  } finally {
-    loading.value = false
+    const response = (await form.submit()) as AxiosApiResponse<AuthResponse>
+
+    auth.setAuth(response.data.data)
+    router.push('/')
+  } catch (error) {
+    if (isAxiosError(error) && error.status !== 422) {
+      errorMessage.value = error.response?.data?.message || 'An error occurred'
+    }
   }
 }
 </script>
@@ -33,39 +41,36 @@ async function handleSubmit() {
     <h1 class="mb-6 text-center text-2xl font-semibold">Welcome to Pulse!</h1>
 
     <form @submit.prevent="handleSubmit" class="flex flex-col gap-4">
-      <Message v-if="formErrors.message.value" severity="error">
-        {{ formErrors.message.value }}
+      <Message v-if="errorMessage" severity="error">
+        {{ errorMessage }}
       </Message>
 
-      <div class="flex flex-col gap-2">
-        <label for="email" class="text-sm font-medium">Email</label>
-        <InputText
-          id="email"
-          v-model="form.email"
-          placeholder="Enter your email"
-          type="email"
-          required
-          :disabled="loading"
-          :invalid="!!formErrors.error.value"
-        />
-      </div>
+      <FormField
+        :form="form"
+        name="email"
+        label="Email"
+        :props="{ type: 'email', placeholder: 'Enter your email' }"
+      />
 
-      <div class="flex flex-col gap-2">
-        <label for="password" class="text-sm font-medium">Password</label>
-        <Password
-          id="password"
-          v-model="form.password"
-          placeholder="Enter your password"
-          toggleMask
-          required
-          fluid
-          :feedback="false"
-          :disabled="loading"
-          :invalid="!!formErrors.error.value"
-        />
-      </div>
+      <FormField
+        :form="form"
+        name="password"
+        label="New password"
+        :component="Password"
+        :props="{
+          toggleMask: true,
+          fluid: true,
+          feedback: false,
+          placeholder: 'Enter your password',
+        }"
+      />
 
-      <Button type="submit" :loading="loading" class="mt-2" label="Sign in" />
+      <Button
+        type="submit"
+        :loading="form.processing"
+        class="mt-2"
+        label="Sign in"
+      />
 
       <div class="mt-4 text-center text-sm">
         Don't have an account?

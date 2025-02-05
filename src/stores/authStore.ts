@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { RegisterCredentials, User } from '@/types/auth'
+import type { AuthResponse, User } from '@/types/auth'
 import { authRequests } from '@/services/requests/auth'
-import router from '@/router'
 import { useStorage } from '@vueuse/core'
 
 export const useAuthStore = defineStore('auth', () => {
@@ -11,30 +10,9 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isAuthenticated = computed(() => !!token.value)
 
-  async function login(email: string, password: string) {
-    try {
-      const authResponse = await authRequests.login({ email, password })
-
-      user.value = authResponse.user
-      token.value = authResponse.token
-
-      await router.push({ name: 'private' })
-    } catch (err) {
-      throw err
-    }
-  }
-
-  async function register(credentials: RegisterCredentials) {
-    try {
-      const authResponse = await authRequests.register(credentials)
-
-      user.value = authResponse.user
-      token.value = authResponse.token
-
-      await router.push({ name: 'private' })
-    } catch (err) {
-      throw err
-    }
+  function setAuth(authResponse: AuthResponse) {
+    user.value = authResponse.user
+    token.value = authResponse.token
   }
 
   async function fetchCurrentUser() {
@@ -71,8 +49,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     isAuthenticated,
 
-    login,
-    register,
+    setAuth,
     logout,
     fetchCurrentUser,
   }

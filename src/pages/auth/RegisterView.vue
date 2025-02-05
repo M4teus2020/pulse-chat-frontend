@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import type { AxiosApiResponse } from '@/types/api'
+import type { AuthResponse } from '@/types/auth'
 import { useAuthStore } from '@/stores/authStore'
-import { getApiError } from '@/utils'
-import { useFormErrors } from '@/composables/useFormErrors'
+import { useForm } from 'laravel-precognition-vue'
+import { useRouter } from 'vue-router'
+import FormField from '@/components/ui/FormField.vue'
+import { Password } from 'primevue'
+import { ref } from 'vue'
+import { isAxiosError } from 'axios'
 
-const authStore = useAuthStore()
-const loading = ref(false)
+const auth = useAuthStore()
+const router = useRouter()
 
-const formErrors = useFormErrors()
-
-const form = ref({
+const errorMessage = ref<string | null>(null)
+const form = useForm('post', '/register', {
   name: '',
   username: '',
   email: '',
@@ -18,14 +22,16 @@ const form = ref({
 
 async function handleSubmit() {
   try {
-    loading.value = true
-    formErrors.clear()
+    errorMessage.value = null
 
-    await authStore.register(form.value)
-  } catch (err) {
-    formErrors.setApiError(getApiError(err) || { message: 'Registro falhou' })
-  } finally {
-    loading.value = false
+    const response = (await form.submit()) as AxiosApiResponse<AuthResponse>
+
+    auth.setAuth(response.data.data)
+    router.push('/')
+  } catch (error) {
+    if (isAxiosError(error) && error.status !== 422) {
+      errorMessage.value = error.response?.data?.message || 'An error occurred'
+    }
   }
 }
 </script>
@@ -35,77 +41,47 @@ async function handleSubmit() {
     <h1 class="mb-6 text-center text-2xl font-semibold">Join Pulse today</h1>
 
     <form @submit.prevent="handleSubmit" class="flex flex-col gap-4">
-      <div class="flex flex-col gap-2">
-        <label for="name" class="text-sm font-medium">Name</label>
-        <InputText
-          id="name"
-          v-model="form.name"
-          placeholder="Enter your name"
-          required
-          :disabled="loading"
-          :invalid="formErrors.hasFieldError('name')"
-          @update:modelValue="formErrors.clearField('name')"
-        />
-        <small v-if="formErrors.hasFieldError('name')" class="text-red-500">
-          {{ formErrors.getFieldError('name') }}
-        </small>
-      </div>
+      <Message v-if="errorMessage" severity="error">
+        {{ errorMessage }}
+      </Message>
 
-      <div class="flex flex-col gap-2">
-        <label for="username" class="text-sm font-medium">Username</label>
-        <InputText
-          id="username"
-          v-model="form.username"
-          placeholder="Enter your username"
-          required
-          :disabled="loading"
-          :invalid="formErrors.hasFieldError('username')"
-          @update:modelValue="formErrors.clearField('username')"
-        />
-        <small v-if="formErrors.hasFieldError('username')" class="text-red-500">
-          {{ formErrors.getFieldError('username') }}
-        </small>
-      </div>
+      <FormField
+        :form="form"
+        name="name"
+        label="Name"
+        :props="{ placeholder: 'Enter your name' }"
+      />
 
-      <div class="flex flex-col gap-2">
-        <label for="email" class="text-sm font-medium">Email</label>
-        <InputText
-          id="email"
-          v-model="form.email"
-          placeholder="Enter your email"
-          type="email"
-          required
-          :disabled="loading"
-          :invalid="formErrors.hasFieldError('email')"
-          @update:modelValue="formErrors.clearField('email')"
-        />
-        <small v-if="formErrors.hasFieldError('email')" class="text-red-500">
-          {{ formErrors.getFieldError('email') }}
-        </small>
-      </div>
+      <FormField
+        :form="form"
+        name="username"
+        label="Username"
+        :props="{ placeholder: 'Enter your username' }"
+      />
 
-      <div class="flex flex-col gap-2">
-        <label for="password" class="text-sm font-medium">Password</label>
-        <Password
-          id="password"
-          v-model="form.password"
-          placeholder="Enter your password"
-          toggleMask
-          required
-          fluid
-          :feedback="true"
-          :disabled="loading"
-          :invalid="formErrors.hasFieldError('password')"
-          @update:modelValue="formErrors.clearField('password')"
-        />
-        <small v-if="formErrors.hasFieldError('password')" class="text-red-500">
-          {{ formErrors.getFieldError('password') }}
-        </small>
-      </div>
+      <FormField
+        :form="form"
+        name="email"
+        label="Email"
+        :props="{ type: 'email', placeholder: 'Enter your email' }"
+      />
+
+      <FormField
+        :form="form"
+        name="password"
+        label="New password"
+        :component="Password"
+        :props="{
+          toggleMask: true,
+          fluid: true,
+          feedback: true,
+          placeholder: 'Enter your password',
+        }"
+      />
 
       <Button
         type="submit"
-        :loading="loading"
+        :loading="form.processing"
         class="mt-2"
         label="Create account"
       />
