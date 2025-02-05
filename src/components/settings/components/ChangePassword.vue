@@ -19,7 +19,7 @@ onMounted(() => {
   }
 })
 
-const form = useForm('post', '/update-password', {
+const form = useForm('post', '/profile/update-password', {
   current_password: '',
   password: '',
   password_confirmation: '',

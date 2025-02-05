@@ -47,7 +47,7 @@ onMounted(() => {
 const auth = useAuthStore()
 const form = useForm(
   actionType === 'disable' ? 'post' : 'delete',
-  `/${actionType}-account`,
+  `/profile/${actionType}-account`,
   {
     password: '',
   },

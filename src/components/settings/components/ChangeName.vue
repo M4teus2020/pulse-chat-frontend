@@ -26,7 +26,7 @@ onMounted(() => {
   }
 })
 
-const form = useForm('post', '/update-name', {
+const form = useForm('post', '/profile/update-name', {
   name: '',
 })
 
