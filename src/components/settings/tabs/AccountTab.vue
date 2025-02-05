@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import SettingsCard from '../components/SettingsCard.vue'
 import UserAvatar from '@/components/ui/UserAvatar.vue'
-import { defineAsyncComponent, ref } from 'vue'
+import { defineAsyncComponent, toRef, type Ref } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useDialog } from 'primevue/usedialog'
 import { Button, DynamicDialog } from 'primevue'
+import type { User } from '@/types/auth'
 
 const authStore = useAuthStore()
-const user = ref(authStore.user!)
+const user = toRef(authStore, 'user') as Ref<User>
 const dialog = useDialog()
 
 const changeUsernameDialog = defineAsyncComponent(
@@ -90,11 +91,11 @@ const showChangeNameDialog = () => {
         </div>
 
         <Button
-size="small"
-label="Edit"
-severity="secondary"
+          size="small"
+          label="Edit"
+          severity="secondary"
           @click="showChangeNameDialog"
-/>
+        />
       </div>
 
       <div class="flex items-center justify-between">
