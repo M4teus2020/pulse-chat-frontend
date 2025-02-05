@@ -15,6 +15,10 @@ export const useAuthStore = defineStore('auth', () => {
     token.value = authResponse.token
   }
 
+  function setUser(value: User) {
+    user.value = value
+  }
+
   async function fetchCurrentUser() {
     if (!token.value) return null
 
@@ -50,6 +54,8 @@ export const useAuthStore = defineStore('auth', () => {
     isAuthenticated,
 
     setAuth,
+    setUser,
+
     logout,
     fetchCurrentUser,
   }
