@@ -27,7 +27,7 @@ const props = defineProps<Props<FormType, Comp>>()
     <label
       :id="String(name)"
       class="text-sm font-medium"
-      :class="form.invalid('current_password') && 'text-red-500'"
+      :class="form.invalid(name) && 'text-red-500'"
     >
       {{ label }}
     </label>
