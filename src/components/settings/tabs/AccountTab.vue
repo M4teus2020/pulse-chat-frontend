@@ -44,6 +44,14 @@ const confirmDisableAccount = () => {
 const confirmDeleteAccount = () => {
   dialog.open(disableAccountDialog, { data: { actionType: 'delete' } })
 }
+
+const changeNameDialog = defineAsyncComponent(
+  () => import('../components/ChangeName.vue'),
+)
+
+const showChangeNameDialog = () => {
+  dialog.open(changeNameDialog)
+}
 </script>
 
 <template>
@@ -81,7 +89,12 @@ const confirmDeleteAccount = () => {
           <p class="font-medium text-color">{{ user.name }}</p>
         </div>
 
-        <Button size="small" label="Edit" severity="secondary" />
+        <Button
+size="small"
+label="Edit"
+severity="secondary"
+          @click="showChangeNameDialog"
+/>
       </div>
 
       <div class="flex items-center justify-between">

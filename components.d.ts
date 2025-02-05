@@ -13,6 +13,7 @@ declare module 'vue' {
     Badge: typeof import('primevue/badge')['default']
     Button: typeof import('primevue/button')['default']
     ChangeEmail: typeof import('./src/components/settings/components/ChangeEmail.vue')['default']
+    ChangeName: typeof import('./src/components/settings/components/ChangeName.vue')['default']
     ChangePassword: typeof import('./src/components/settings/components/ChangePassword.vue')['default']
     ChangeUsername: typeof import('./src/components/settings/components/ChangeUsername.vue')['default']
     ContainerComponent: typeof import('./src/components/ui/ContainerComponent.vue')['default']
