@@ -80,6 +80,7 @@ async function handleSubmit() {
         :label="currentAction.confirmLabel"
         size="small"
         severity="danger"
+        :loading="form.processing"
       />
     </div>
   </form>
