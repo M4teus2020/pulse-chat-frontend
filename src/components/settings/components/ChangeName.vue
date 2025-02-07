@@ -27,24 +27,24 @@ onMounted(() => {
 })
 
 const form = useForm('post', '/profile/update-name', {
-  name: '',
+  name: auth.user?.name || '',
 })
 
 async function handleSubmit() {
-  const response = await form.submit() as AxiosApiResponse<User>
+  const response = (await form.submit()) as AxiosApiResponse<User>
   auth.setUser(response.data.data)
   close()
 }
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit" class="space-y-4 w-96">
-
+  <form @submit.prevent="handleSubmit" class="w-96 space-y-4">
     <div class="space-y-2">
       <FormField
         :form="form"
         name="name"
         label="Name"
+        :props="{ placeholder: 'Enter your name' }"
       />
     </div>
 

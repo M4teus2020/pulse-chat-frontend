@@ -26,7 +26,7 @@ onMounted(() => {
 })
 
 const form = useForm('post', '/profile/update-username', {
-  username: '',
+  username: auth.user?.username || '',
   password: '',
 })
 
