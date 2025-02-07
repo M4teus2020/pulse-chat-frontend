@@ -4,6 +4,7 @@ export interface User {
   username: string
   cap_name: string
   email: string
+  email_verified: boolean
   image: string | null
 }
 

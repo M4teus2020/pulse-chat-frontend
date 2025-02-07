@@ -15,7 +15,8 @@ import api from './services/api'
 import PrimeVue from 'primevue/config'
 import AppTheme from './theme/app-theme'
 
-import DialogService from 'primevue/dialogservice';
+import ToastService from 'primevue/toastservice'
+import DialogService from 'primevue/dialogservice'
 
 client.use(api)
 
@@ -31,5 +32,6 @@ app.use(PrimeVue, {
 })
 
 app.use(DialogService)
+app.use(ToastService)
 
 app.mount('#app')

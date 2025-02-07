@@ -37,4 +37,8 @@ export const authRequests = {
   }): Promise<void> {
     await api.post('/update-password', data)
   },
+
+  async sendEmailVerification(): Promise<void> {
+    await api.post('/email/send-verification')
+  },
 }
