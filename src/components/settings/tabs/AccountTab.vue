@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import SettingsCard from '../components/SettingsCard.vue'
 import UserAvatar from '@/components/ui/UserAvatar.vue'
-import { defineAsyncComponent, ref, toRef, type Ref } from 'vue'
+import { defineAsyncComponent, onMounted, ref, toRef, type Ref } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useDialog } from 'primevue/usedialog'
 import { Button, DynamicDialog, useToast } from 'primevue'
@@ -11,6 +11,8 @@ import { authRequests } from '@/services/requests/auth'
 const authStore = useAuthStore()
 const user = toRef(authStore, 'user') as Ref<User>
 const dialog = useDialog()
+
+onMounted(authStore.fetchCurrentUser)
 
 const changeUsernameDialog = defineAsyncComponent(
   () => import('../components/ChangeUsername.vue'),

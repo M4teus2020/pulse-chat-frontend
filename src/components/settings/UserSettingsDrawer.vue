@@ -25,7 +25,7 @@ const sidebarOptions = [
     position="right"
     :pt="{
       root: {
-        class: 'max-w-2xl w-full rounded-l-2xl',
+        class: 'max-w-xl w-full rounded-l-2xl',
       },
       footer: {
         class: 'hidden',
