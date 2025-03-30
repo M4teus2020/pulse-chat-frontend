@@ -1,25 +1,28 @@
-<script
-  lang="ts"
-  setup
-  generic="FormType extends Record<string, unknown>, Comp extends Component"
->
+<script lang="ts" setup generic="FormType extends Record<string, unknown>">
 import type { Form } from 'laravel-precognition-vue/dist/types'
-import { InputText } from 'primevue'
+import { InputText, Password } from 'primevue'
 import type { Component } from 'vue'
 
-export interface Props<
-  FormType extends Record<string, unknown>,
-  Comp extends Component,
-> {
+export interface Props<FormType extends Record<string, unknown>> {
   form: Form<FormType>
   name: keyof FormType
   label: string
-  component?: Comp
+  type?: 'text' | 'password'
+  component?: Component
   props?: Record<string, unknown>
 }
 
 const model = defineModel<Form<FormType>>('form', { required: true })
-const props = defineProps<Props<FormType, Comp>>()
+const props = withDefaults(defineProps<Props<FormType>>(), {
+  props: () => ({}),
+  component: (props: Props<FormType>) => {
+    if (props.type === 'password') {
+      return Password
+    }
+
+    return InputText
+  },
+})
 </script>
 
 <template>
@@ -40,7 +43,7 @@ const props = defineProps<Props<FormType, Comp>>()
       @update:modelValue="form.forgetError(name)"
     >
       <component
-        :is="component || InputText"
+        :is="component"
         :id="String(name)"
         v-model="model[name as keyof typeof model]"
         :disabled="form.processing"

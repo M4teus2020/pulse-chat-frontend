@@ -41,4 +41,8 @@ export const authRequests = {
   async sendEmailVerification(): Promise<void> {
     await api.post('/email/send-verification')
   },
+
+  async requestChangeCode(): Promise<void> {
+    await api.post('/email/request-change-code')
+  },
 }
