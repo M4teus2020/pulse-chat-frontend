@@ -5,9 +5,9 @@ import DirectLinkItem from './components/DirectLinkItem.vue'
 import ContainerComponent from '@/components/ui/ContainerComponent.vue'
 
 const navItems = [
-  { icon: 'pi pi-users', title: 'Friends', path: '/friends' },
-  { icon: 'pi pi-envelope', title: 'Message Requests', path: '/direct' },
-  { icon: 'pi pi-shopping-cart', title: 'Shop', path: '/shop' },
+  { icon: 'pi pi-users', title: 'Friends', to: { name: 'friends' } },
+  { icon: 'pi pi-envelope', title: 'Message Requests', to: { name: 'directs' } },
+  { icon: 'pi pi-shopping-cart', title: 'Shop', to: { name: 'shop' } },
 ]
 
 const directMessages = [
@@ -118,7 +118,7 @@ const directMessages = [
             :key="index"
             :icon="navItem.icon"
             :title="navItem.title"
-            :path="navItem.path"
+            :to="navItem.to"
           />
         </div>
 

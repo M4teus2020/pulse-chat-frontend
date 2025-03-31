@@ -8,13 +8,14 @@ export default [
     meta: {
       requiresAuth: true,
     },
+    redirect: '/private',
     children: [
       {
         name: 'private',
-        path: '',
+        path: 'private',
         component: () => import('@/layouts/private-layout/PrivateLayout.vue'),
 
-        redirect: '/friends',
+        redirect: '/private/friends',
         children: [
           {
             name: 'friends',
@@ -22,26 +23,26 @@ export default [
             component: () => import('@/pages/friends/FriendsView.vue'),
           },
           {
-            name: 'direct',
-            path: 'direct',
+            name: 'directs',
+            path: 'directs',
             component: () => import('@/pages/direct/DirectView.vue'),
           },
           {
-            name: 'direct - :id',
+            name: 'direct',
             path: 'direct/:id',
             component: () => import('@/pages/direct/DirectView.vue'),
           },
           {
             name: 'shop',
             path: 'shop',
-            component: () => import('@/pages/direct/DirectView.vue'),
+            component: () => import('@/pages/shop/ShopView.vue'),
           },
         ],
       },
       {
-        name: 'channels',
-        path: 'channels',
-        component: () => import('@/layouts/private-layout/PrivateLayout.vue'),
+        name: 'channel',
+        path: 'channel/:id',
+        component: () => import('@/layouts/channel-layout/ChannelLayout.vue'),
       },
     ],
   },

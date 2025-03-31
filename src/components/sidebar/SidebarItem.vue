@@ -1,22 +1,32 @@
 <script setup lang="ts">
-defineProps<{
-  title: string
-  icon: string
+import { cn } from '@/utils'
+
+export interface SidebarItemProps {
+  title?: string
+  icon?: string
   selected?: boolean
-}>()
+  class?: string
+  activeClass?: string
+}
+
+const props = defineProps<SidebarItemProps>()
 </script>
 
 <template>
   <div
     v-tooltip="title"
-    class="flex w-12 cursor-pointer select-none items-center justify-center gap-1 text-nowrap rounded-lg px-4 py-4 text-base transition-all"
-    :class="[
-      {
-        'bg-transparent text-muted-color hover:bg-emphasis': !selected,
-        'bg-primary text-primary-contrast hover:bg-primary-emphasis': selected,
-      },
-    ]"
+    :class="
+      cn(
+        'flex size-12 cursor-pointer select-none items-center justify-center rounded-lg text-base transition-all text-muted-color hover:bg-emphasis',
+        selected &&
+          'bg-primary text-primary-contrast hover:bg-primary-emphasis',
+        props.class,
+        selected && activeClass,
+      )
+    "
   >
-    <i :class="icon" />
+    <slot>
+      <i :class="icon" />
+    </slot>
   </div>
 </template>

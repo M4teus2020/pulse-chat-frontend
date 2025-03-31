@@ -30,6 +30,7 @@ declare module 'vue' {
     SelectButton: typeof import('primevue/selectbutton')['default']
     SettingsCard: typeof import('./src/components/settings/components/SettingsCard.vue')['default']
     SidebarItem: typeof import('./src/components/sidebar/SidebarItem.vue')['default']
+    SidebarLink: typeof import('./src/components/sidebar/SidebarLink.vue')['default']
     SidebarNav: typeof import('./src/components/sidebar/SidebarNav.vue')['default']
     Toast: typeof import('primevue/toast')['default']
     UserAvatar: typeof import('./src/components/ui/UserAvatar.vue')['default']

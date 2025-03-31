@@ -3,43 +3,35 @@ import ContainerComponent from '@/components/ui/ContainerComponent.vue'
 import UserSettingsDrawer from '@/components/settings/UserSettingsDrawer.vue'
 import PulseLogo from '@/components/icons/PulseLogo.vue'
 import MenuItem from './SidebarItem.vue'
-import { ref } from 'vue'
+import MenuLink from './SidebarLink.vue'
 
-const selectedSidebarNav = ref('Overview')
-const navItems = [
-  { icon: 'pi pi-home', title: 'Overview' },
-  { icon: 'pi pi-comment', title: 'Chat' },
-  { icon: 'pi pi-inbox', title: 'Inbox' },
-  { icon: 'pi pi-th-large', title: 'Cards' },
-  { icon: 'pi pi-user', title: 'Customers' },
-  { icon: 'pi pi-video', title: 'Movies' },
+const channels = [
+  { id: '1', title: 'Channel 1', icon: 'pi pi-home' },
+  { id: '2', title: 'Channel 2', icon: 'pi pi-inbox' },
+  { id: '3', title: 'Channel 3', icon: 'pi pi-th-large' },
 ]
-
-function setSelectedSidebarNav(title: string) {
-  selectedSidebarNav.value = title
-}
 </script>
 
 <template>
   <ContainerComponent class="w-auto" headerClass="h-auto">
     <template #header>
-      <div
-        class="flex size-12 items-center justify-center rounded-xl border border-primary"
+      <MenuLink
+        :to="{ name: 'private' }"
+        title="Private"
+        class="border border-primary p-0 "
       >
         <PulseLogo />
-      </div>
+      </MenuLink>
     </template>
 
     <template #body>
-      <!-- Main Links -->
       <div class="flex flex-col gap-2">
-        <MenuItem
-          v-for="navItem in navItems"
-          :key="navItem.title"
-          :title="navItem.title"
-          :icon="navItem.icon"
-          :selected="selectedSidebarNav === navItem.title"
-          @click="setSelectedSidebarNav(navItem.title)"
+        <MenuLink
+          v-for="channel in channels"
+          :key="channel.id"
+          :title="channel.title"
+          :icon="channel.icon"
+          :to="{ name: 'channel', params: { id: channel.id } }"
         />
       </div>
 
