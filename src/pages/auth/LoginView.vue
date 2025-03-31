@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { AxiosApiResponse } from '@/types/api'
 import type { AuthResponse } from '@/types/auth'
-import { isAxiosError, type AxiosError } from 'axios'
+import { isAxiosError } from 'axios'
 
-import { Password } from 'primevue'
+import { Password, useToast } from 'primevue'
 import FormField from '@/components/ui/FormField.vue'
 
 import { useAuthStore } from '@/stores/authStore'
@@ -11,6 +11,7 @@ import { useForm } from 'laravel-precognition-vue'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
+const toast = useToast()
 const auth = useAuthStore()
 const router = useRouter()
 
@@ -28,6 +29,27 @@ async function handleSubmit() {
 
     auth.setAuth(response.data.data)
     router.push('/')
+  } catch (error) {
+    if (isAxiosError(error) && error.status !== 422) {
+      errorMessage.value = error.response?.data?.message || 'An error occurred'
+    }
+  }
+}
+
+async function handleForgotPassword() {
+  try {
+    errorMessage.value = null
+
+    await form.submit({
+      url: '/forgot-password',
+    })
+
+    toast.add({
+      severity: 'success',
+      summary: 'Instructions sent',
+      detail: `We sent instructions to change your password to ${form.email}, please check both your inbox and spam folder.`,
+      life: 15000,
+    })
   } catch (error) {
     if (isAxiosError(error) && error.status !== 422) {
       errorMessage.value = error.response?.data?.message || 'An error occurred'
@@ -52,18 +74,28 @@ async function handleSubmit() {
         :props="{ type: 'email', placeholder: 'Enter your email' }"
       />
 
-      <FormField
-        :form="form"
-        name="password"
-        label="New password"
-        :component="Password"
-        :props="{
-          toggleMask: true,
-          fluid: true,
-          feedback: false,
-          placeholder: 'Enter your password',
-        }"
-      />
+      <div>
+        <FormField
+          :form="form"
+          name="password"
+          label="Password"
+          :component="Password"
+          :props="{
+            toggleMask: true,
+            fluid: true,
+            feedback: false,
+            placeholder: 'Enter your password',
+          }"
+        />
+
+        <button
+          class="mt-2 text-sm font-medium text-primary hover:underline"
+          type="button"
+          @click="handleForgotPassword"
+        >
+          Forgot password?
+        </button>
+      </div>
 
       <Button
         type="submit"

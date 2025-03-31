@@ -69,7 +69,7 @@ async function handleSubmit() {
       <FormField
         :form="form"
         name="password"
-        label="New password"
+        label="Password"
         :component="Password"
         :props="{
           toggleMask: true,

@@ -5,6 +5,7 @@ useColorMode()
 </script>
 
 <template>
+  <Toast />
   <RouterView />
 </template>
 

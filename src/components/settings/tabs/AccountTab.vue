@@ -86,7 +86,6 @@ const sendVerificationEmail = async () => {
 
 <template>
   <div class="space-y-4">
-    <Toast />
     <SettingsCard title="Profile">
       <div class="flex items-center justify-between">
         <div

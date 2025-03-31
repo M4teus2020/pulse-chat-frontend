@@ -61,6 +61,11 @@ export default [
         name: 'register',
         component: () => import('@/pages/auth/RegisterView.vue'),
       },
+      {
+        path: 'reset-password',
+        name: 'reset-password',
+        component: () => import('@/pages/auth/ResetPasswordView.vue'),
+      },
     ],
   },
 ] as RouteRecordRaw[]
